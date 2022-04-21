@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# lm-code-mock-restapi
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is aimed at demonstrating the use of Mock Service Worker and React Testing Library.
+
+A "fetch button" is added to the App.tsx and it would return either an error or the first title (Castle in the Sky) of the following RestAPI
+
+`https://ghibliapi.herokuapp.com/films`
+
+The testing file is to mock the RestAPI to test on the both cases.
 
 ## Available Scripts
 
