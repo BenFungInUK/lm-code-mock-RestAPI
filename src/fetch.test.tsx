@@ -2,12 +2,12 @@
 import React from "react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Fetch from "./fetch";
 
 const server = setupServer(
-  rest.get("/greeting", (req, res, ctx) => {
+  rest.get("https://ghibliapi.herokuapp.com/films", (req, res, ctx) => {
     return res(ctx.json([{ title: "hello there" }]));
   })
 );
@@ -17,7 +17,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test("loads and displays greeting", async () => {
-  render(<Fetch url="/greeting" />);
+  render(<Fetch url="https://ghibliapi.herokuapp.com/films" />);
 
   fireEvent.click(screen.getByText("Load Greeting"));
 
@@ -29,12 +29,12 @@ test("loads and displays greeting", async () => {
 
 test("handles server error", async () => {
   server.use(
-    rest.get("/greeting", (req, res, ctx) => {
+    rest.get("https://ghibliapi.herokuapp.com/films", (req, res, ctx) => {
       return res(ctx.status(500));
     })
   );
 
-  render(<Fetch url="/greeting" />);
+  render(<Fetch url="https://ghibliapi.herokuapp.com/films" />);
 
   fireEvent.click(screen.getByText("Load Greeting"));
 
